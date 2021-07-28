@@ -4,15 +4,15 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Superhero extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
+    static associate (models) {
+      Superhero.hasMany(models.Image, {
+        foreignKey: 'superheroId',
+      });
+       Superhero.belongsToMany(models.Superpower, {
+        through: 'superheroes_to_superpowers',
+        foreignKey: 'superheroId',
+       })
+  }};
   Superhero.init({
        nickname: {
         allowNull: false,
